@@ -3,6 +3,13 @@ import tkinter as tk
 class MultiChoiceGUI:
     def __init__(self, frame):
         self.frame = frame
+    def display(self):
+        tk.Label(self.frame, text="Question:").pack()
+        tk.Label(self.frame, text="What is the Capital of the World?:").pack()
+        self.check_label = tk.Label(self.frame, text=" ")
+        for (text, value) in backend.get_options():
+            tk.Radiobutton(self.frame, text=text, variable=backend.get_selection(), value=value, command=lambda: backend.check_answer(backend.get_selection(), self.check_label)).pack()
+        self.check_label.pack()
 
 class MultiChoiceClass:
     def __init__(self, frame):
@@ -12,12 +19,8 @@ class MultiChoiceClass:
     def check_answer(self, selection, label):
         if selection.get() == 3:
             label['text']="Correct!"
-            print("Correct")
-            print(selection.get())
         else:
             label['text']="Incorrect!"
-            print("Incorrect")
-            print(selection.get())
     def get_options(self):
         return self.options.items()
     def get_selection(self):
